@@ -1,0 +1,43 @@
+client_secrets.json
+token.json
+# ==========================================
+# Python Standard Ignore Rules
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+
+# ==========================================
+# App Outputs & Local Test Media
+# ==========================================
+# Prevents generated output videos from cluttering git
+*.mp4
+*.avi
+*.mov
+*.mkv
+# Keep this line if output videos share a specific name:
+MeetYourFamily.mp4
+
+# ==========================================
+# PyInstaller & Packaging Artifacts
+# ==========================================
+# Generated when building desktop executables (.exe / .app)
+build/
+dist/
+*.manifest
+*.spec
+
+# ==========================================
+# IDE & Environment Files
+# ==========================================
+.vscode/
+.idea/
+*.swp
+.DS_Store
+*.env
