@@ -21,6 +21,12 @@ import threading
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
+# Redirect standard output and error to devnull when running in windowed mode
+if getattr(sys, 'frozen', False) and sys.stdout is None:
+    sys.stdout = open(os.devnull, 'w')
+if getattr(sys, 'frozen', False) and sys.stderr is None:
+    sys.stderr = open(os.devnull, 'w')
+
 # Get absolute path to resource, works for dev and for PyInstaller --onefile
 if getattr(sys, 'frozen', False):
     BASE_DIR = sys._MEIPASS
@@ -400,8 +406,10 @@ class FullscreenStudioApp(ctk.CTk):
             base_clip = VideoFileClip(os.path.join(ASSETS_DIR, "base_clips", base_filename))
             base_clip = base_clip.with_duration(base_length).resized(height=720).without_audio()
 
+            font_path = os.path.join(BASE_DIR, "assets", "font.ttf")
+
             base_text = TextClip(
-                text="Meet Your Family", font_size=160, color='blue', font='font.ttf', size=(1400, 900)
+                text="Meet Your Family", font_size=160, color='blue', font=font_path, size=(1400, 900)
             ).with_duration(base_length).with_position(("center", 500))
 
             base_clip = CompositeVideoClip([base_clip, base_text])
