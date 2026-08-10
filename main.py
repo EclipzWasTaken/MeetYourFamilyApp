@@ -1,4 +1,5 @@
 import os
+import sys
 import random
 import threading
 import cv2
@@ -16,21 +17,26 @@ from moviepy import (
     clips_array,
     concatenate_videoclips,
 )
-
-
-import os
 import threading
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from googleapiclient.discovery import build
-from googleapiclient.http import MediaFileUpload
+
+# Get absolute path to resource, works for dev and for PyInstaller --onefile
+if getattr(sys, 'frozen', False):
+    BASE_DIR = sys._MEIPASS
+else:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+ASSETS_DIR = os.path.join(BASE_DIR, "assets")
+
+
+
 
 def _youtube_upload_worker(self):
     try:
         SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
         secret_path = os.path.join(BASE_DIR, "client_secret.json")
-        token_path = os.path.join(BASE_DIR, "token.json")
+        token_path = os.path.join(os.getcwd(), "token.json")
 
         creds = None
 
@@ -206,7 +212,8 @@ class FullscreenStudioApp(ctk.CTk):
         ]
 
         self.role_pickers = {}
-        self.output_path = os.path.join(BASE_DIR, "MeetYourFamily_Custom.mp4")
+        # Saves directly next to where the .exe is running from
+        self.output_path = os.path.join(os.getcwd(), "MeetYourFamily_Custom.mp4")
 
         self.create_layout()
 
